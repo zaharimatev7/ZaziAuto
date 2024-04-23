@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Zazi Auto</title>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="AddCarPageStyle.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <header class="header">
+        <div id="menu-btn" class="fas fa-bars"></div>
+        <a href="/index.html" class="logo"> <span>Zazi</span>Auto</a>
+           <div id="admin-btn">
+               <button class="btn" onclick="handleAdmin()">Добави</button>
+           </div>
+           <div id="login-btn">
+               <button class="btn">Вход</button>
+               <i class="far fa-user"></i>
+           </div>
+           <div id="logout-btn">
+                <p id="textParagraph"></p>
+               <p id="textParagraph"></p>
+               <button class="btn" onclick="handleLogout()">Изход</button>
+           </div>
+       </header>
+       <section class="form-container">
+        <h3>Добави нов продукт</h3>
+        <form id="product-form">
+            <div class="form-group">
+                <label for="name">Име:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="price">Цена:</label>
+                <input type="number" id="price" name="price" required>
+            </div>
+            <div class="form-group">
+                <label for="content">Описание:</label>
+                <textarea id="content" name="content" required></textarea>
+            </div>
+            
+            <button type="submit">Добави</button>
+        </form>
+    </section>
+       <script>
+        const textParagraph = document.getElementById("textParagraph");
+    // Firebase конфигурация
+    const firebaseConfig = {
+        apiKey: "AIzaSyBmll165OhvMsFBjiXxFJ4xuDvT1dMdEKU",
+  authDomain: "zaziauto-b1aee.firebaseapp.com",
+  databaseURL: "https://zaziauto-b1aee-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "zaziauto-b1aee",
+  storageBucket: "zaziauto-b1aee.appspot.com",
+  messagingSenderId: "1002158482839",
+  appId: "1:1002158482839:web:c9ce771e1d2ae782c910d2",
+  measurementId: "G-17JVH477XY"
+    };
+
+    // Инициализиране на Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    function handleLogout(){
+        console.log("logout wliza")
+        localStorage.clear();
+        const url = "http://127.0.0.1:5500/index.html";
+                window.location.replace(url);    }
+
+    // Функция за вход в акаунт
+    function handleLogin() {
+        const email = document.getElementById("emailInput").value;
+
+        const password = document.getElementById("passwordInput").value;
+        console.log(email +" "+password)
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                console.log("Wliza")
+                // Вход успешен, извличане на информация за потребителя
+                const user = userCredential.user;
+                console.log("Успешен вход:", user);
+                localStorage.setItem("Email",email);
+                console.log(localStorage.getItem("Email"));
+                const url = "http://127.0.0.1:5500/index.html";
+                window.location.replace(url);
+                // Тук можете да направите нещо с информацията за потребителя, като покажете съобщение за успешен вход или да пренасочите потребителя към друга страница
+            })
+            .catch((error) => {
+                // Грешка при вход
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error("Грешка при вход:", errorMessage);
+                // Тук можете да покажете съобщение за грешка или да извършите други действия
+            });
+    }
+       
+        
+        textParagraph.textContent = localStorage.getItem("Email");
+        if(localStorage.getItem("Email")=="zizo@gmail.com" && location != "http://127.0.0.1:5500/AddCarPage.html#home"){
+            textParagraph.textContent = localStorage.getItem("Email");
+            document.getElementById("logout-btn").style.display = "inline-block";
+            document.getElementById("admin-btn").style.display = "inline-block";
+            document.getElementById("login-btn").style.display = "none";
+        }
+        else if(localStorage.getItem("Email")=="zizo@gmail.com"){
+            textParagraph.textContent = localStorage.getItem("Email");
+            document.getElementById("logout-btn").style.display = "inline-block";
+            document.getElementById("admin-btn").style.display = "none";
+            document.getElementById("login-btn").style.display = "none";
+        }
+        else if(localStorage.getItem("Email")){
+            textParagraph.textContent = localStorage.getItem("Email");
+            document.getElementById("logout-btn").style.display = "inline-block";
+            document.getElementById("login-btn").style.display = "none";
+            document.getElementById("admin-btn").style.display = "none";
+        }
+        else{
+            document.getElementById("logout-btn").style.display = "none";
+            document.getElementById("login-btn").style.display = "inline-block";
+            document.getElementById("admin-btn").style.display = "none";
+        }
+
+  // Получаване на референция към таблицата /product
+const productRef = firebase.database().collection("product");
+
+// Функция за добавяне на продукт
+function addProduct() {
+console.log(name +" "+ price +" "+ content);
+  // Генериране на нов ключ за продукта
+  const newProductKey = productRef.push().key;
+  
+  // Обект с информация за продукта
+  const productData = {
+    name: name,
+    price: price,
+    content: content,
+    
+  };
+
+  // Записване на данните във Firebase
+  return productRef.child(newProductKey).set(productData)
+    .then(() => {
+      console.log("Продуктът е успешно добавен в базата данни.");
+    })
+    .catch((error) => {
+      console.error("Грешка при добавяне на продукта: ", error);
+    });
+}
+
+// Обработчик на събитието за изпращане на формата
+document.getElementById("product-form").addEventListener("submit", function(event) {
+  event.preventDefault(); // Предотвратява презареждането на страницата
+  
+  // Вземане на стойностите от полетата на формата
+  const name = document.getElementById("name").value;
+  const price = parseFloat(document.getElementById("price").value);
+  const content = document.getElementById("content").value;
+//   const liked = false;
+
+  // Добавяне на продукта във Firebase
+  addProduct(name, price, content);
+  console.log("kachva");
+});
+
+
+
+
+</script>
+</body>
+</html>

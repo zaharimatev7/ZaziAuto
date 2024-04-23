@@ -1,0 +1,105 @@
+.product {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.product .container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.product h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.product img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.product .description p {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.product .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.product .btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product .btn:hover {
+    background-color: #0056b3;
+}
+.product {
+    border: 2px solid #ccc; /* Цвят и дебелина на рамката */
+    padding: 20px; /* Вътрешно разстояние */
+}
+
+.product-info {
+    display: flex; /* Съдържанието на продукта е подредено в един ред */
+}
+
+.product-image {
+    border: 1px solid #ccc; /* Цвят и дебелина на рамката за снимката */
+    padding: 10px; /* Вътрешно разстояние */
+    margin-right: 20px; /* Разстояние между снимката и описанието */
+}
+
+.product-image img {
+    max-width: 100%; /* Снимката да се съобрази с ширината на контейнера */
+}
+
+.description {
+    flex: 1; /* Описанието на продукта да заема оставащото пространство в контейнера */
+}
+.product {
+    margin-top: 50px;  
+    border: 2px solid lightgrey; /* Цвят и дебелина на рамката */
+    border-radius: 10px; /* Закръглени ръбове */
+    padding: 20px; /* Вътрешно разстояние */
+    background-color: #f9f9f9; /* Цвят на фона */
+}
+
+.product-info {
+    display: flex; /* Съдържанието на продукта е подредено в един ред */
+}
+
+.product-image {
+    border: 1px solid #ccc; /* Цвят и дебелина на рамката за снимката */
+    padding: 10px; /* Вътрешно разстояние */
+    margin-right: 20px; /* Разстояние между снимката и описанието */
+}
+
+.product-image img {
+    max-width: 100%; /* Снимката да се съобрази с ширината на контейнера */
+}
+
+.description {
+    flex: 1; /* Описанието на продукта да заема оставащото пространство в контейнера */
+}
+
+.description ul {
+    list-style: none; /* Скриваме маркировката на списъка */
+    padding: 0; /* Премахваме вътрешното разстояние на списъка */
+}
+
+.description li {
+    margin-bottom: 5px; /* Разстояние между елементите на списъка */
+}
+

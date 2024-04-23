@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zazi Auto</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+     <div id="menu-btn" class="fas fa-bars"></div>
+     <a href="#" class="logo"> <span>Zazi</span>Auto</a>
+        <nav class="navbar">
+           <a href="#home">Начало</a>
+           <a href="#featured">Избрани</a>      
+           <a href="#services">Услуги</a>
+           <a href="#vehicles">Автомобили</a>
+           <a href="#reviews">Оценки</a>
+           <a href="#contact">Контакти</a>
+        </nav>
+        <div id="admin-btn">
+            <p id="textParagraph"></p>
+            <button class="btn" onclick="handleAdmin()">Добави</button>
+        </div>
+        <div id="login-btn">
+            <button class="btn">Вход</button>
+            <i class="far fa-user"></i>
+        </div>
+        <div id="logout-btn">
+            <p id="textParagraph"></p>
+            <button class="btn" onclick="handleLogout()">Изход</button>
+        </div>
+    </header>
+    <!-- <div class="login-form-container">
+        <span class="fas fa-times" id="close-login-form"></span>
+        <form action="">
+            <h3>User Login</h3>
+            <input type="email" placeholder="email" class="box">
+            <input type="password" placeholder="password" class="box">
+            <p>Забравена парола <a href="#">Натисни тук</a></p>
+            <input type="submit" value="Влез сега" class="btn">
+            <p>Влезте чрез</p>
+            <div class="buttons">
+                <a href="#" class="btn">Google</a>
+                <a href="#" class="btn">Facebook</a>
+            </div>
+            <p>Нямате регистрация? <a href="registration.html" class="btn1">Създайте</a></p>
+        </form>
+    </div> -->
+    <div class="login-form-container" id="login-form">
+        <span class="fas fa-times" id="close-login-form" onclick="closeLoginForm()"></span>
+        <form>
+            <h3>Вход в акаунт</h3>
+            <div class="box">
+                <input type="email" placeholder="Имейл" id="emailInput">
+            </div>
+            <div class="box">
+                <input type="password" placeholder="Парола" id="passwordInput">
+            </div>
+            <div class="buttons">
+                <button class="btn" type="button" onclick="handleLogin()">Вход</button>
+                <p>Нямате регистрация? <a href="registration.html" class="btn1">Създайте</a></p>
+            </div>
+        </form>
+    </div>
+      
+    <section class="home" id="home">
+        <h1 class="home-parallax" data-speed="-2"> харесай кола! </h1>
+        <img class="home-parallax" data-speed="5" src="car.png" alt="">
+        <!-- <a href="#" class="btn home-parallax" data-speed="7"> нашите коли </a> -->
+    </section>
+    <section class="icons-container">
+        <div class="icons">
+            <i class="fas fa-home"></i>
+            <div class="content">
+                <h3>20+</h3>
+                <p>офиса</p>
+            </div>
+        </div>
+        <div class="icons">
+            <i class="fas fa-car"></i>
+            <div class="content">
+                <h3>3000+</h3>
+                <p>продадени коли</p>
+            </div>
+        </div>
+        <div class="icons">
+            <i class="fas fa-users"></i>
+            <div class="content">
+                <h3>700+</h3>
+                <p>доволни купувачи</p>
+            </div>
+        </div>
+        <div class="icons">
+            <i class="fas fa-car"></i>
+            <div class="content">
+                <h3>500+</h3>
+                <p>нови коли</p>
+            </div>
+        </div>
+    </section>
+    <section class="vehicles" id="featured">
+        <h1 class="heading"> най-желани <span>коли</span> </h1>   
+         <div class="swiper vehicles-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide box">
+                    <img src="mercedesgt63.jpeg"  alt="">
+                    <div class="content">
+                        <h3>Mercedes GT 63s</h3>
+                        <div class="price"> <span>цена: </span> 180,000лв </div>
+                        <p>
+                            new
+                            <span class="fas fa-circle"></span> 2022
+                            <span class="fas fa-circle"></span> автоматик
+                            <span class="fas fa-circle"></span> бензинов двигател
+                            <span class="fas fa-circle"></span> 700к.с.
+                        </p>
+                        <a href="product.html" class="btn">разгледай</a>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="Image.jpg"  alt="">
+                    <div class="content">
+                        <h3>BMW M3</h3>
+                        <div class="price"> <span>цена: </span> 150,000лв </div>
+                        <p>
+                            new
+                            <span class="fas fa-circle"></span> 2023
+                            <span class="fas fa-circle"></span> автоматик
+                            <span class="fas fa-circle"></span> бензинов двигател
+                            <span class="fas fa-circle"></span> 510к.с.
+                        </p>
+                        <a href="#" class="btn">разгледай</a>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="Image 1.jpg"  alt="">
+                    <div class="content">
+                        <h3>BMW M5</h3>
+                        <div class="price"> <span>цена: </span> 80,000лв </div>
+                        <p>
+                            new
+                            <span class="fas fa-circle"></span> 2020
+                            <span class="fas fa-circle"></span> автоматик
+                            <span class="fas fa-circle"></span> бензинов двигател
+                            <span class="fas fa-circle"></span> 220к.с.
+                        </p>
+                        <a href="#" class="btn">разгледай</a>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="hyundai-ioniq5-white-background.jpg"  alt="">
+                    <div class="content">
+                        <h3>Hyundai</h3>
+                        <div class="price"> <span>цена: </span> 90,000лв </div>
+                        <p>
+                            new
+                            <span class="fas fa-circle"></span> 2023
+                            <span class="fas fa-circle"></span> автоматик
+                            <span class="fas fa-circle"></span> електрическа
+                            <span class="fas fa-circle"></span> 390к.с.
+                        </p>
+                        <a href="#" class="btn">разгледай</a>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="Image 2.jpg" alt="">
+                    <div class="content">
+                        <h3>Porsche Cayenne</h3>
+                        <div class="price"> <span>цена: </span> 110,000лв </div>
+                        <p>
+                            new
+                            <span class="fas fa-circle"></span> 2023
+                            <span class="fas fa-circle"></span> автоматик
+                            <span class="fas fa-circle"></span> бензинов двигател
+                            <span class="fas fa-circle"></span> 300к.с.
+                        </p>
+                        <a href="#" class="btn">разгледай</a>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="Image 3.jpg"  alt="">
+                    <div class="content">
+                        <h3>BMW M8</h3>
+                        <div class="price"> <span>цена: </span> 210,000лв </div>
+                        <p>
+                            new
+                            <span class="fas fa-circle"></span> 2021
+                            <span class="fas fa-circle"></span> автоматик
+                            <span class="fas fa-circle"></span> бензинов двигател
+                            <span class="fas fa-circle"></span> 630к.с.
+                        </p>
+                        <a href="#" class="btn">разгледай</a>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+         </div>    
+    </section>
+    <section class="services" id="services">
+        <h1 class="heading"> нашите <span>услуги</span> </h1>
+        <div class="box-container">
+            <div class="box">
+                <i class="fas fa-car"></i>
+                <h3>продажби на коли</h3>
+                <p>Доверете се на ZaziAuto!Тук ще намерите качество, отношение и добри цени!</p>
+                <!-- <a href="#" class="btn">Виж повече</a> -->
+            </div>
+            <div class="box">
+                <i class="fas fa-tools"></i>
+                <h3>рециклиране на части</h3>
+                <p>Имате части, които не са годни за използване, но искате да се възползвате от тях?Ние, от ZaziAuto ще купим вашите авточасти!</p>
+                <!-- <a href="#" class="btn">Виж повече</a> -->
+            </div>
+            <div class="box">
+                <i class="fas fa-car-crash"></i>
+                <h3>застраховка</h3>
+                <p>Застраховайте вашия нов автомобил при нас, за да бъдете спокойни при злополука!</p>
+                <!-- <a href="#" class="btn">Виж повече</a> -->
+            </div>
+            <div class="box">
+                <i class="fas fa-car-battery"></i>
+                <h3>смяна на акумулатор</h3>
+                <p>В сервиза на ZaziAuto, може да се възползвате от ремонт по вашата кола, като например смяна на акумулатор!</p>
+                <!-- <a href="#" class="btn">Виж повече</a> -->
+            </div>
+            <div class="box">
+                <i class="fas fa-gas-pump"></i>
+                <h3>смяна на масла</h3>
+                <p>Тук ще намерите най-добрата услуга за смяна на масло на вашата кола!</p>
+                <!-- <a href="#" class="btn">Виж повече</a> -->
+            </div>
+            <div class="box">
+                <i class="fas fa-headset"></i>
+                <h3>24/7 връзка със служител</h3>
+                <p>Имате въпрос?Нашият уебсайт разполага със служители, които очакват вашата връзка по всяко време от денонощието!</p>
+                <!-- <a href="#" class="btn">Виж повече</a> -->
+            </div>
+        </div>
+    </section>
+    <section class="featured" id="vehicles">
+        <h1 class="heading"> <span>нашите</span> автомобили </h1>
+        <div class="swiper featured-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide box">
+                    <img src="NISSAN_GT-R-2023_main.jpg" alt="">
+                    <h3>Nissan GT-R</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="price">100,000лв</div>
+                    <a href="#" class="btn">разгледай</a>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="Shelby_Super_Cars_White_background_White_559662_1280x853.jpg" alt="">
+                    <h3>Ford Mustang Shelby</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="price">120,000лв</div>
+                    <a href="#" class="btn">разгледай</a>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="Tesla-Model-S.jpg.webp" alt="">
+                    <h3>Tesla Model S</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <!-- <i class="fas fa-star-o"></i> -->
+                    </div>
+                    <div class="price">80,000лв</div>
+                    <a href="#" class="btn">разгледай</a>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="bmw-i3-final.jpg" alt="">
+                    <h3>BMW I3</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <!-- <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i> -->
+                    </div>
+                    <div class="price">70,000лв</div>
+                    <a href="#" class="btn">разгледай</a>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="swiper featured-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide box">
+                    <img src="bmw-m2-alpine-white-non-metallic.jpg" alt="">
+                    <h3>BMW M2</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <!-- <i class="fas fa-star"></i> -->
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="price">90,000лв</div>
+                    <a href="#" class="btn">разгледай</a>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="2018_mazda_mx_5_miata_angularfront.jpg" alt="">
+                    <h3>Mazda MX5</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="price">80,000лв</div>
+                    <a href="#" class="btn">разгледай</a>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="id-7-vwid-24.jpg" alt="">
+                    <h3>Volkswagen 2023</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="price">100,000лв</div>
+                    <a href="#" class="btn">разгледай</a>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="3.webp" alt="">
+                    <h3>KIA</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <!-- <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i> -->
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="price">53,000лв</div>
+                    <a href="#" class="btn">разгледай</a>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+    <div class="newsletter">
+        <h3>абонирайте се за актуални новини</h3>
+        <p>Абонирайте се за да бъдете в крачка с новините свързани със сайта ни!</p>
+        <form action="">
+            <input type="email" placeholder="въведете вашия имейл" name="" id="">
+            <button type="submit" class="btn">Изпрати</button>
+            <!-- <input type="submit" class="submit" name="" id=""> -->
+        </form>
+    </div> 
+    <!-- <section class="about-us" id="about">
+        <h1 class="heading"> За нас </h1>
+        <div class="content">
+            <p> Добре дошли в ZaziAuto! Ние сме водеща компания в продажбата на автомобили със 
+                забележително качество и невероятни цени. С години опит и доволни клиенти, ние сме 
+                вашето идеално място за покупка на следващата ви кола. Нашата мисия е да предложим 
+                най-доброто обслужване на клиенти и да гарантираме, че всеки клиент получава 
+                персонализирано внимание и помощ при избора на автомобил. За повече информация, 
+                моля, свържете се с нас на посочените контакти.</p>
+            <img src="about-us.jpg" alt="За нас">
+        </div>
+    </section> -->
+    
+    <section class="reviews" id="reviews">
+        <h1 class="heading"> доволни <span>клиенти</span> </h1>
+        <div class="swiper reviews-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide box">
+                    <img src="IMG_5965.jpeg" alt="">
+                    <div class="content">
+                        <p>Доволна съм от обслужването, намерих колата, която търсех.</p>
+                        <h3>Теодора</h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <!-- <i class="fas fa-star"></i> -->
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="IMG_5962.jpeg" alt="">
+                    <div class="content">
+                        <p>Тук намерих моята Хонда, в която съм влюбен!Благодаря за отношението, бих използвал услуга отново.</p>
+                        <h3>Велизар</h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="IMG_5963.jpeg" alt="">
+                    <div class="content">
+                        <p>Купих си автомобил от сайта и го застраховах тук.Благодаря за отношението!Препоръчвам!</p>
+                        <h3>Антон</h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="IMG_5964.jpeg" alt="">
+                    <div class="content">
+                        <p>Препоръчаха ми сайта, намерих удобна семейна кола, точно каквато търсех.Доволен съм от отношението на персонала!</p>
+                        <h3>Кристиян</h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <!-- <i class="fas fa-star-half-alt"></i> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="IMG_9052.jpeg" alt="">
+                    <div class="content">
+                        <p>Върнах старите си авточасти, които не ми трябваха и намерих автомобил на добра цена.</p>
+                        <h3>Кристиян</h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <!-- <i class="fas fa-star"></i> -->
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="IMG_9195.jpeg" alt="">
+                    <div class="content">
+                        <p>Браво!Страхотен сайт!</p>
+                        <h3>Захари</h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+    <section class="contact" id="contact">
+        <h1 class="heading"> <span>свържете се</span> с нас </h1>
+        <div class="row">
+            <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2959.0435598048853!2d24.752224!3d42.1279507!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14acd051810a9647%3A0xa4b5df9c8508e570!2sProfesionalna%20Gimnazia%20PO%20Mehanotehnika%20Prof.TSV.Lazarov!5e0!3m2!1sen!2sbg!4v1708691097081!5m2!1sen!2sbg" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <form action="">
+                <h3>бъди в крачка</h3>
+                <input type="text" placeholder="име" class="box">
+                <input type="email" placeholder="имейл" class="box">
+                <input type="number" placeholder="номер" class="box">
+                <textarea placeholder="съобщение" class="box" cols="30" rows="10"></textarea>
+                <button type="submit" class="btn">Изпрати</button>
+                <!-- <input type="submit" value="send message" class="btn"> -->
+            </form>
+        </div> 
+    </section>
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>нашите партньори</h3>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> България </a>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> Русия </a>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> Сърбия </a>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> Гърция </a>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> Румъния </a>
+            </div>
+            <div class="box">
+                <h3>препратки</h3>
+                <a href="#"> <i class="fas fa-arrow-right"></i> начало </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> избрани </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> услуги </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> автомобили </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> оценки </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> контакти </a>
+            </div>
+            <div class="box">
+                <h3>връзки</h3>
+                <a href="#"> <i class="fas fa-phone"></i> +359-777-777-777 </a>
+                <a href="#"> <i class="fas fa-phone"></i> +359-777-777-777 </a>
+                <a href="#"> <i class="fas fa-envelope"></i> zzzz7777777@gmail.com </a>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> Пловдив, България - 4000 </a>
+            </div>
+            <!-- <div class="box">
+                <h3>връзки</h3>
+                <a href="#"> <i class="fab fa-facebook-f"></i> Facebook </a>
+                <a href="#"> <i class="fab fa-twitter"></i> Twitter </a>
+                <a href="#"> <i class="fab fa-instagram"></i> Instagram </a>
+                <a href="#"> <i class="fab fa-linkedin"></i> Linkedin </a>
+                <a href="#"> <i class="fab fa-pinterest"></i> Pinterest </a>
+            </div> -->
+        </div>
+        <div class="credit"> изработка от З.М. | всички права запазени! </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+
+<script>
+        const textParagraph = document.getElementById("textParagraph");
+    // Firebase конфигурация
+    const firebaseConfig = {
+        apiKey: "AIzaSyBmll165OhvMsFBjiXxFJ4xuDvT1dMdEKU",
+  authDomain: "zaziauto-b1aee.firebaseapp.com",
+  databaseURL: "https://zaziauto-b1aee-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "zaziauto-b1aee",
+  storageBucket: "zaziauto-b1aee.appspot.com",
+  messagingSenderId: "1002158482839",
+  appId: "1:1002158482839:web:c9ce771e1d2ae782c910d2",
+  measurementId: "G-17JVH477XY"
+    };
+
+    // Инициализиране на Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    function handleLogout(){
+        console.log("logout wliza")
+        localStorage.clear();
+        location.reload();    }
+
+    // Функция за вход в акаунт
+    function handleLogin() {
+        const email = document.getElementById("emailInput").value;
+
+        const password = document.getElementById("passwordInput").value;
+        console.log(email +" "+password)
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                console.log("Wliza")
+                // Вход успешен, извличане на информация за потребителя
+                const user = userCredential.user;
+                console.log("Успешен вход:", user);
+                localStorage.setItem("Email",email);
+                console.log(localStorage.getItem("Email"));
+                const url = "http://127.0.0.1:5500/index.html";
+                window.location.replace(url);
+                // Тук можете да направите нещо с информацията за потребителя, като покажете съобщение за успешен вход или да пренасочите потребителя към друга страница
+            })
+            .catch((error) => {
+                // Грешка при вход
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error("Грешка при вход:", errorMessage);
+                // Тук можете да покажете съобщение за грешка или да извършите други действия
+            });
+    }
+        function handleAdmin(){
+            const url = "http://127.0.0.1:5500/AddCarPage.html#home";
+                window.location.replace(url);
+        }
+        textParagraph.textContent = localStorage.getItem("Email");
+        if(localStorage.getItem("Email")=="zizo@gmail.com"){
+            textParagraph.textContent = localStorage.getItem("Email");
+            document.getElementById("logout-btn").style.display = "inline-block";
+            document.getElementById("admin-btn").style.display = "inline-block";
+            document.getElementById("login-btn").style.display = "none";
+        }
+        else if(localStorage.getItem("Email")){
+            textParagraph.textContent = localStorage.getItem("Email");
+            document.getElementById("logout-btn").style.display = "inline-block";
+            document.getElementById("login-btn").style.display = "none";
+            document.getElementById("admin-btn").style.display = "none";
+        }
+        else{
+            document.getElementById("logout-btn").style.display = "none";
+            document.getElementById("login-btn").style.display = "inline-block";
+            document.getElementById("admin-btn").style.display = "none";
+        }
+</script>
+
+
+</body>
+</html>
